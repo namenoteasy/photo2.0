@@ -9,8 +9,8 @@
 		"nodeModules": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.3.1",
-	"appid": "wx2984c3354dfc51d6",
+	"libVersion": "2.8.0",
+	"appid": "wx19f5de2d220f6389",
 	"projectname": "photoshow",
 	"isGameTourist": false,
 	"condition": {

@@ -7,7 +7,7 @@ module.exports = {
     expire: 60 * 60 * 24 * 3, // 秒
   },
   wx: {
-    appId: "wx2984c3354dfc51d6",
-    appSecret: "97edbc9d20107e9ad1fc9fc466d1c4b8",
+    appId: "wx19f5de2d220f6389",
+    appSecret: "211b66f5270dc3db3023e1900e5d1f66",
   }
 };

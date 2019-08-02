@@ -11,7 +11,7 @@ const isDev = think.env === 'development';
  * @type {Object}
  */
 exports.cache = {
-  type: 'redis',
+  type: 'file',
   common: {
     timeout: 24 * 60 * 60 * 1000 // millisecond
   },
@@ -49,7 +49,7 @@ exports.model = {
     host: '127.0.0.1',
     port: '3306',
     user: 'root',
-    password: '123456',
+    password: 'root',
     dateStrings: true
   }
 };
