@@ -15,16 +15,16 @@ App({
       wxPromise(wx.login).then(loginRes => {
         // 获取用户信息
         wxPromise(wx.getUserInfo, {
+          withCredentials: true,
           lang: "zh_CN",
         }).then(res => {
           let data = {
             code: loginRes.code,
-            userInfo: res.userInfo
+            userInfo: res
           }
           severRequest("login", data).then(res => {
             this.globalData.isLogin = true;
-            debugger
-            wx.setStorageSync("token", res.data);
+            wx.setStorageSync("token", res.data.token);
             resolve();
           })
         })
