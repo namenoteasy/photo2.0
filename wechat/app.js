@@ -23,6 +23,7 @@ App({
           }
           severRequest("login", data).then(res => {
             this.globalData.isLogin = true;
+            debugger
             wx.setStorageSync("token", res.data);
             resolve();
           })

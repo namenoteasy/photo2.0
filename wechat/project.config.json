@@ -11,8 +11,10 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.8.0",
 	"appid": "wx19f5de2d220f6389",
-	"projectname": "photoshow",
+	"projectname": "wechat",
 	"isGameTourist": false,
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,

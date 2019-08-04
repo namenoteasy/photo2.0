@@ -64,7 +64,7 @@ Page({
       })
     } else {
       wx.setNavigationBarTitle({
-        title: "我想学摄影",
+        title: "打擂台",
       })
       this.setData({
         fixed: true

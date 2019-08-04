@@ -109,7 +109,7 @@ Page({
         ctx.setFillStyle('#fff');
         ctx.drawImage(this.data.QrCode, margin, margin, 40, 40);
         ctx.setFontSize(12);
-        ctx.fillText("我想学摄影", margin + 45, 38);
+        ctx.fillText("打擂台", margin + 45, 38);
         ctx.setFontSize(10);
         ctx.fillText("长按识别小程序", margin + 45, 53);
       }

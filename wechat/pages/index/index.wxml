@@ -2,10 +2,10 @@
 <import src="/templates/articleList.wxml" />
 <import src="/templates/loading.wxml" />
 <template wx:if="{{loading}}" is="page-loading" />
-<view class="top-title">
+<!-- <view class="top-title">
   <text class="main-title">热门推荐</text>
   <text></text>
-</view>
+</view> -->
 <swiper previous-margin="30rpx" duration="300" next-margin="30rpx">
   <block wx:for="{{bannerList}}" wx:key="{{item.id}}">
     <swiper-item>

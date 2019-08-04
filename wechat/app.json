@@ -3,8 +3,6 @@
     "pages/index/index",
     "pages/center/center",
     "pages/hot/hot",
-    "pages/home/home",
-    "pages/classify/classify",
     "pages/credits/credits",
     "pages/commentList/commentList",
     "pages/article/article",
@@ -13,12 +11,14 @@
     "pages/commentArticle/commentArticle",
     "pages/aboutWxApp/aboutWxApp",
     "pages/aboutDeveloper/aboutDeveloper",
-    "pages/wallpaperShare/wallpaperShare"
+    "pages/wallpaperShare/wallpaperShare",
+    "pages/post/post",
+    "pages/arena/arena"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "我想学摄影",
+    "navigationBarTitleText": "打擂台",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
@@ -33,8 +33,14 @@
         "selectedIconPath": "/assets/icons/home_active.png"
       },
       {
-        "pagePath": "pages/wallpaper/wallpaper",
-        "text": "精选",
+        "pagePath": "pages/post/post",
+        "text": "发帖",
+        "iconPath": "/assets/icons/image.png",
+        "selectedIconPath": "/assets/icons/image_active.png"
+      },
+      {
+        "pagePath": "pages/arena/arena",
+        "text": "擂台",
         "iconPath": "/assets/icons/image.png",
         "selectedIconPath": "/assets/icons/image_active.png"
       },
@@ -45,5 +51,6 @@
         "selectedIconPath": "/assets/icons/center_active.png"
       }
     ]
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

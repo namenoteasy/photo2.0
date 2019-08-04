@@ -1,51 +1,53 @@
-const request = require("request-promise");
-const jsonwebtoken = require('jsonwebtoken');
 
 module.exports = class extends think.Controller {
   async indexAction() {
-    let { code, userInfo } = this.post();
+    const code = this.post('code');
+    const fullUserInfo = this.post('userInfo');
+    const clientIp = this.ctx.ip;
 
-    // 获取openid和session_key
-    let options = {
-      method: "GET",
-      url: "https://api.weixin.qq.com/sns/jscode2session",
-      qs: {
-        grant_type: "authorization_code",
-        js_code: code,
-        appid: this.config("wx.appId"),
-        secret: this.config("wx.appSecret")
-      }
+    // 解释用户数据
+    const userInfo = await this.service('weixin').login(code, fullUserInfo);
+    if (think.isEmpty(userInfo)) {
+      return this.fail('登录失败');
     }
-    let loginInfo = await request(options);
-    let openid = JSON.parse(loginInfo).openid;
 
-    const result = await this.model('api/index').getUser({ openid: openid });
-    if (result.id) {
-      this.cache("currentUserId", result.id);
-      let token = this.getToken(result.id);
-      this.success(token, "登录成功");
-    } else {
-      let data = {
-        openid: openid,
-        user_name: userInfo.nickName,
-        gender: userInfo.gender,
-        avatar: userInfo.avatarUrl,
-        country: userInfo.country,
-        province: userInfo.province,
-        city: userInfo.city,
-        create_date: think.datetime(new Date())
-      }
-      const result = await this.model('api/index').createUser(data);
-      let token = this.getToken(result);
-      this.success(token, "新用户登录");
+    // 根据openid查找用户是否已经注册
+    let userId = await this.model('user').where({ openid: userInfo.openId }).getField('id', true);
+    if (think.isEmpty(userId)) {
+      // 注册
+      userId = await this.model('user').add({
+        username: '微信用户' + think.uuid(6),
+        password: '',
+        register_time: parseInt(new Date().getTime() / 1000),
+        register_ip: clientIp,
+        mobile: '',
+        openid: userInfo.openId,
+        avatar: userInfo.avatarUrl || '',
+        gender: userInfo.gender || 1, // 性别 0：未知、1：男、2：女
+        nickname: userInfo.nickName
+      });
     }
+
+    // 查询用户信息
+    const newUserInfo = await this.model('user').field(['id', 'username', 'nickname', 'gender', 'avatar', 'birthday']).where({ id: userId }).find();
+
+    // 更新登录信息
+    userId = await this.model('user').where({ id: userId }).update({
+      last_login_time: parseInt(new Date().getTime() / 1000),
+      last_login_ip: clientIp
+    });
+
+    const TokenSerivce = this.service('token');
+    const sessionKey = await TokenSerivce.create({ user_id: userId });
+
+    if (think.isEmpty(newUserInfo) || think.isEmpty(sessionKey)) {
+      return this.fail('登录失败');
+    }
+
+    return this.success({ token: sessionKey, userInfo: newUserInfo }, '登录成功');
   }
 
-  // 生成token
-  getToken(userId) {
-    const { secret, appToken, expire } = this.config('jwt');
-    // 生成token
-    const token = jsonwebtoken.sign({ userId }, secret, { expiresIn: expire });
-    return token;
+  async logoutAction() {
+    return this.success();
   }
-}
+};
