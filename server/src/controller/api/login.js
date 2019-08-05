@@ -38,7 +38,7 @@ module.exports = class extends think.Controller {
     });
 
     const TokenSerivce = this.service('token');
-    const sessionKey = await TokenSerivce.create({ user_id: userId });
+    const sessionKey = await TokenSerivce.create({ userId: userId });
 
     if (think.isEmpty(newUserInfo) || think.isEmpty(sessionKey)) {
       return this.fail('登录失败');

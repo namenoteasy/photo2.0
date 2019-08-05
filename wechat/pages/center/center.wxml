@@ -2,7 +2,7 @@
   <image class="center_bg" mode='aspectFill' src='../../assets/images/center_bg.jpg'></image>
   <view class="avatar-warp">
     <image class="avatar" mode='aspectFill' src='{{userInfo.avatar || "../../assets/icons/default_avatar.jpg"}}'></image>
-    <view class="nickname">{{userInfo.user_name || '未登录'}}</view>
+    <view class="nickname">{{userInfo.nickname || '未登录'}}</view>
     <!-- <view class="user-info">
       <image src='../../assets/icons/level.png'></image>影坛新手</view> -->
     <view class="article-info">
