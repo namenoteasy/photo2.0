@@ -61,5 +61,6 @@ function severRequest(apiKey, params = {}, method = "POST") {
 }
 
 module.exports = {
+  HOST: HOST,
   severRequest: severRequest
 }
